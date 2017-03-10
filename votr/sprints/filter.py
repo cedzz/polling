@@ -1,6 +1,17 @@
+import django_filters
 
-class ProjectsFilter(object):
-    pass
+from sprints.models import Sprints, Projects
 
-class SprintsFilter(object):
-    pass
+
+class SprintsFilter(django_filters.rest_framework.FilterSet):
+
+    class Meta:
+        model = Sprints
+        fields = '__all__'
+
+
+class ProjectsFilter(django_filters.rest_framework.FilterSet):
+
+    class Meta:
+        model = Projects
+        fields = '__all__'

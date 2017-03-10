@@ -7,18 +7,20 @@ from teams.models import Teams
 
 
 class Projects(models.Model):
+
     team = models.ForeignKey(Teams)
+    project_name = models.CharField(max_length=50, default=None, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(default=None)
     end_date = models.DateTimeField(default=None)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
 
 class Sprints(models.Model):
 
-    company = models.CharField(max_length=50)
-    team = models.ForeignKey(Teams)
     project = models.ForeignKey(Projects)
+    sprint_name = models.CharField(max_length=50, default=None, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(default=None)

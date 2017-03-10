@@ -28,7 +28,10 @@ class TeamSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         member_data = validated_data.pop("member")
-        team = team_store.create_team(**validated_data)
+        try:
+            team = team_store.create_team(**validated_data)
+        except Exception:
+            raise serializers.ValidationError("Team Already Exists")
         team_store.create_members(team=team, member_data=member_data)
         return team
 
