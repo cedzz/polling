@@ -8,10 +8,10 @@ from django.db import models
 class Teams(models.Model):
 
     company = models.CharField(max_length=50)
-    team_name = models.CharField(max_length=50)
+    team_name = models.CharField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     image = models.CharField(max_length=255, null=True, blank=True)
 
 
