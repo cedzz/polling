@@ -6,3 +6,4 @@ djangorestframework==3.5.4
 redis==2.8.0
 requests==2.5.1
 django==1.9.12
+django-filter==1.0.1
