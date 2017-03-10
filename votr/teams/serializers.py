@@ -32,14 +32,20 @@ class TeamSerializer(serializers.Serializer):
         team_store.create_members(team=team, member_data=member_data)
         return team
 
+
 class MemberSerializer(serializers.Serializer):
 
     name = serializers.CharField(required=True, max_length=50)
     age = serializers.IntegerField()
-    team = TeamInfo(required=True)
+    team = serializers.CharField(required=True, max_length=50)
 
     def validate(self, data):
-
-        self.team = data.get("team")
-        if not Teams.objects.filter(team_name=self.team.get("team_name")).exists():
+        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
+        if not data["team"]:
             raise serializers.ValidationError("Invalid Team")
+
+        return data
+
+    def save(self):
+        instance = team_store.create_member(member_data=self.validated_data)
+        return instance.save()
