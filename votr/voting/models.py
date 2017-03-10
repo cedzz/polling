@@ -29,5 +29,5 @@ class Votes(models.Model):
     candidate = models.ForeignKey(Members)
     voter = models.CharField(max_length=50, default=None)
     parameter = models.IntegerField(choices=PARAMETER_CHOICES, default=None)
-    comments = models.CharField(max_length=200)
+    comments = models.TextField(max_length=200)
     created_at = models.DateTimeField()

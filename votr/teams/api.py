@@ -9,6 +9,7 @@ from teams.serializers import TeamSerializer, MemberSerializer
 
 class TeamsViewSet(viewsets.ModelViewSet):
 
+    template_name = 'team.html'
     serializer_class = TeamSerializer
     queryset = Teams.objects.all()
     pagination_class = None
@@ -19,6 +20,7 @@ class TeamsViewSet(viewsets.ModelViewSet):
 
 class MemberViewSet(viewsets.ModelViewSet):
 
+    template_name = 'member.html'
     serializer_class = MemberSerializer
     queryset = Teams.objects.all()
     pagination_class = None

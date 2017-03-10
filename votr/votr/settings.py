@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIRS = (
-    '/home/ayush/webapps/votr/templates',
+    '/home/ayush/webapps/polling/votr/templates',
 )
 
 # Quick-start development settings - unsuitable for production
@@ -26,10 +26,6 @@ SECRET_KEY = 'atgg+6j)6qaaok13a(wo1ktyf@!g$5_n=9pd%y!axu7^gtivu&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = [
-    '.mpulse.votr.com',
-]
 
 # Application definition
 
@@ -110,6 +106,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAdminUser',
     ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
     'PAGE_SIZE': 10
 }
 
@@ -132,4 +132,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/home/ayush/webapps/votr/static'
+STATIC_ROOT = '/home/ayush/webapps/polling/votr/static'

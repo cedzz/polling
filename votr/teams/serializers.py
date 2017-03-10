@@ -21,7 +21,7 @@ class TeamSerializer(serializers.Serializer):
 
     company = serializers.CharField(required=True, max_length=50)
     team_name = serializers.CharField(required=True, max_length=50)
-    member = MemberInfo(required=False)
+    members = MemberInfo(required=False)
 
 
 class MemberSerializer(serializers.Serializer):
