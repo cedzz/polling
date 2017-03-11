@@ -22,37 +22,43 @@ class SprintInfo(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SprintsSerializer(serializers.Serializer):
-
-    sprint_name = serializers.CharField(required=True, max_length=50)
-    start_date = serializers.DateTimeField(required=False)
-    end_date = serializers.DateTimeField(required=False)
-    project = serializers.CharField(required=True, max_length=50)
-
-    def validate(self, data):
-        data["project"] = sprint_store.get_project_object_or_none(project_name=data.get("project"))
-        if not data["project"]:
-            raise serializers.ValidationError("Invalid Project")
-        return data
-
-    def save(self):
-        instance = sprint_store.create_sprint(sprint_data=self.validated_data)
-        return instance
-
-
 class ProjectsSerializer(serializers.Serializer):
 
     project_name = serializers.CharField(required=True, max_length=50)
     team = serializers.CharField(required=True, max_length=50)
-    start_date = serializers.DateTimeField(required=False)
-    end_date = serializers.DateTimeField(required=False)
+    start_date = serializers.DateField(required=False)
+    end_date = serializers.DateField(required=False)
 
     def validate(self, data):
-        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
+        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team").lower())
         if not data["team"]:
             raise serializers.ValidationError("Invalid Team")
         return data
 
     def save(self):
-        instance = sprint_store.create_project(project_data=self.validated_data)
+        try:
+            instance = sprint_store.create_project(**self.validated_data)
+        except Exception as e:
+            raise serializers.ValidationError(e.message)
+        return instance
+
+
+class SprintsSerializer(serializers.Serializer):
+
+    sprint_name = serializers.CharField(required=True, max_length=50)
+    start_date = serializers.DateField(required=False)
+    end_date = serializers.DateField(required=False)
+    project = serializers.CharField(required=True, max_length=50)
+
+    def validate(self, data):
+        data["project"] = sprint_store.get_project_object_or_none(project_name=data.get("project").lower())
+        if not data["project"]:
+            raise serializers.ValidationError("Invalid Project")
+        return data
+
+    def save(self):
+        try:
+            instance = sprint_store.create_sprint(**self.validated_data)
+        except Exception as e:
+            raise serializers.ValidationError(e.message)
         return instance

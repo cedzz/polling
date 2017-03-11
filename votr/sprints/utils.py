@@ -4,10 +4,16 @@ from sprints.models import Sprints, Projects
 class SprintsStore(object):
 
     def create_sprint(self, **kwargs):
-        return Sprints.objects.create(**kwargs)
+        try:
+            return Sprints.objects.create(**kwargs)
+        except Exception:
+            raise Exception("Duplicate Sprint Found")
 
     def create_project(self, **kwargs):
-        return Projects.objects.create(**kwargs)
+        try:
+            return Projects.objects.create(**kwargs)
+        except Exception:
+            raise Exception("Duplicate Project Found")
 
     def get_project_object_or_none(self, **kwargs):
         try:

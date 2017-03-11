@@ -13,7 +13,7 @@ class Projects(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(default=None)
-    end_date = models.DateTimeField(default=None)
+    end_date = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=True)
 
 
@@ -24,5 +24,5 @@ class Sprints(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(default=None)
-    end_date = models.DateTimeField(default=None)
+    end_date = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=True)

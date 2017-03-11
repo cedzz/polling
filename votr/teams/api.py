@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework import renderers
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 
 from teams.filter import TeamFilter, MemberFilter
 from teams.models import Teams, Members
@@ -21,9 +21,9 @@ class TeamsViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_class = TeamFilter
 
-    @detail_route(methods=['post'])
-    def deactivate_team(self, request, pk=None):
-        success = team_store.deactivate_team(pk=pk)
+    @list_route(methods=['patch'])
+    def deactivate_team(self, request):
+        success = team_store.deactivate_team(**request.data)
         if success:
             return HttpResponse(status=200)
         else:
@@ -40,9 +40,9 @@ class MemberViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_class = MemberFilter
 
-    @detail_route(methods=['post'])
-    def deactivate_member(self, request, pk=None):
-        success = team_store.deactivate_member(pk=pk)
+    @list_route(methods=['patch'])
+    def deactivate_member(self, request):
+        success = team_store.deactivate_member(**request.data)
         if success:
             return HttpResponse(status=200)
         else:

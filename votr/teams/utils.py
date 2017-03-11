@@ -5,10 +5,9 @@ class TeamStore(object):
 
     def create_team(self, **kwargs):
         try:
-            team = Teams.objects.create(**kwargs)
+            return Teams.objects.create(**kwargs)
         except Exception:
             raise Exception("Integrity Error")
-        return team
 
     def create_members(self, team, member_data):
         member_list = []
@@ -33,7 +32,10 @@ class TeamStore(object):
         return member
 
     def create_member(self, member_data):
-        return Members.objects.create(**member_data)
+        try:
+            return Members.objects.create(**member_data)
+        except Exception:
+            raise Exception("Duplicate Member Found")
 
     def deactivate_team(self, **kwargs):
         team = self.get_team_object_or_none(**kwargs)

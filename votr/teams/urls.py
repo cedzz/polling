@@ -6,7 +6,6 @@ router = routers.DefaultRouter()
 router.register(r'members', api.MemberViewSet)
 router.register(r'', api.TeamsViewSet)
 
-
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [

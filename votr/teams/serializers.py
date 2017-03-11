@@ -30,8 +30,8 @@ class TeamSerializer(serializers.Serializer):
         member_data = validated_data.pop("member")
         try:
             team = team_store.create_team(**validated_data)
-        except Exception:
-            raise serializers.ValidationError("Team Already Exists")
+        except Exception as e:
+            raise serializers.ValidationError(e.message)
         team_store.create_members(team=team, member_data=member_data)
         return team
 
@@ -43,12 +43,14 @@ class MemberSerializer(serializers.Serializer):
     team = serializers.CharField(required=True, max_length=50)
 
     def validate(self, data):
-        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
+        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team").lower())
         if not data["team"]:
             raise serializers.ValidationError("Invalid Team")
-
         return data
 
     def save(self):
-        instance = team_store.create_member(member_data=self.validated_data)
-        return instance.save()
+        try:
+            instance = team_store.create_member(member_data=self.validated_data)
+        except Exception as e:
+            raise serializers.ValidationError(e.message)
+        return instance
