@@ -22,6 +22,6 @@ from voting import urls as voting_urls
 urlpatterns = [
     url(r'^team/', include(team_urls)),
     url(r'^sprint/', include(sprint_urls)),
-    url(r'^voting/', include(voting_urls)),
+    url(r'^booth/', include(voting_urls)),
     url(r'^admin/', admin.site.urls)
 ]

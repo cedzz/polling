@@ -3,8 +3,10 @@ from rest_framework import routers
 from voting import api
 
 router = routers.DefaultRouter()
-router.register(r'', api.VotingViewSet)
-router.register(r'booth', api.BoothViewSet)
+router.register(r'vote', api.VotingViewSet)
+router.register(r'parameter', api.ParameterViewSet)
+router.register(r'', api.BoothViewSet)
+
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

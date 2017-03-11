@@ -1,6 +1,17 @@
+import django_filters
 
-class BoothFilter(object):
-    pass
+from voting.models import Booth, Votes
 
-class VotingFilter(object):
-    pass
+
+class BoothFilter(django_filters.rest_framework.FilterSet):
+
+    class Meta:
+        model = Booth
+        fields = '__all__'
+
+
+class VotingFilter(django_filters.rest_framework.FilterSet):
+
+    class Meta:
+        model = Votes
+        fields = '__all__'

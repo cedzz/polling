@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from sprints.models import Sprints, Projects
 
 
@@ -34,6 +36,7 @@ class SprintsStore(object):
         project = self.get_project_object_or_none(**kwargs)
         if project:
             project.is_active = False
+            project.end_date = timezone.now()
             project.save()
             return True
         else:
@@ -43,6 +46,7 @@ class SprintsStore(object):
         sprint = self.get_sprints_object_or_none(**kwargs)
         if sprint:
             sprint.is_active = False
+            sprint.end_date = timezone.now()
             sprint.save()
             return True
         else:

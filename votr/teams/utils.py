@@ -54,3 +54,6 @@ class TeamStore(object):
             return True
         else:
             return False
+
+    def member_already_exists(self, **kwargs):
+        return Members.objects.filter(**kwargs).exists()

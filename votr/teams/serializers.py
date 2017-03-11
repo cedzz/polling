@@ -46,6 +46,8 @@ class MemberSerializer(serializers.Serializer):
         data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
         if not data["team"]:
             raise serializers.ValidationError("Invalid Team")
+        if team_store.member_already_exists(team=data["team"], name=data["name"]):
+            raise serializers.ValidationError("Member Already Created")
         return data
 
     def save(self):
