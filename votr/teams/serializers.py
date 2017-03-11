@@ -43,7 +43,7 @@ class MemberSerializer(serializers.Serializer):
     team = serializers.CharField(required=True, max_length=50)
 
     def validate(self, data):
-        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team").lower())
+        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
         if not data["team"]:
             raise serializers.ValidationError("Invalid Team")
         return data

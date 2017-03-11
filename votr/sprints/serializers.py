@@ -30,7 +30,7 @@ class ProjectsSerializer(serializers.Serializer):
     end_date = serializers.DateField(required=False)
 
     def validate(self, data):
-        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team").lower())
+        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
         if not data["team"]:
             raise serializers.ValidationError("Invalid Team")
         return data
@@ -51,7 +51,7 @@ class SprintsSerializer(serializers.Serializer):
     project = serializers.CharField(required=True, max_length=50)
 
     def validate(self, data):
-        data["project"] = sprint_store.get_project_object_or_none(project_name=data.get("project").lower())
+        data["project"] = sprint_store.get_project_object_or_none(project_name=data.get("project"))
         if not data["project"]:
             raise serializers.ValidationError("Invalid Project")
         return data
