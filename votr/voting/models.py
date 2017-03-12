@@ -15,6 +15,8 @@ class VotingParams(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return self.parameter_name
 
 class Booth(models.Model):
 
@@ -25,12 +27,14 @@ class Booth(models.Model):
     end_date = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return self.booth_name
 
 class Votes(models.Model):
 
     booth = models.ForeignKey(Booth)
-    candidate = models.ForeignKey(Members)
-    voter = models.CharField(max_length=50, default=None)
+    candidate = models.ForeignKey(Members, related_name='candidate')
+    voter = models.ForeignKey(Members, related_name='voter')
     parameter = models.ForeignKey(VotingParams)
     comments = models.TextField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)

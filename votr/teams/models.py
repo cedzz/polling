@@ -14,6 +14,8 @@ class Teams(models.Model):
     is_active = models.BooleanField(default=True)
     image = models.CharField(max_length=255, null=True, blank=True)
 
+    def __unicode__(self):
+        return self.team_name
 
 class Members(models.Model):
 
@@ -23,3 +25,6 @@ class Members(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.name

@@ -69,7 +69,6 @@ class VotingSerializer(serializers.Serializer):
             raise serializers.ValidationError("Invalid Candidate")
         if booth_store.already_voted(booth=data["booth"], parameter=data["parameter"], voter=data["voter"].name):
             raise serializers.ValidationError("Already Voted For %s Parameter" % (data["parameter"].parameter_name))
-        data["voter"] = data["voter"].name
         return data
 
     def save(self):

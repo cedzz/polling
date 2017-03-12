@@ -40,13 +40,13 @@ class MemberSerializer(serializers.Serializer):
 
     name = serializers.CharField(required=True, max_length=50)
     age = serializers.IntegerField()
-    team = serializers.CharField(required=True, max_length=50)
+    team_id = serializers.IntegerField(required=True)
 
     def validate(self, data):
-        data["team"] = team_store.get_team_object_or_none(team_name=data.get("team"))
-        if not data["team"]:
+        team = team_store.get_team_object_or_none(id=data.get("team_id"))
+        if not team:
             raise serializers.ValidationError("Invalid Team")
-        if team_store.member_already_exists(team=data["team"], name=data["name"]):
+        if team_store.member_already_exists(team=team, name=data["name"]):
             raise serializers.ValidationError("Member Already Created")
         return data
 

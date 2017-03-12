@@ -3,6 +3,7 @@ from rest_framework import renderers
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
 
 from teams.filter import TeamFilter, MemberFilter
 from teams.models import Teams, Members
@@ -13,11 +14,10 @@ team_store = TeamStore()
 
 class TeamsViewSet(viewsets.ModelViewSet):
 
-    template_name = 'team.html'
     serializer_class = TeamSerializer
     queryset = Teams.objects.all()
     pagination_class = None
-    renderer_classes = (renderers.JSONRenderer, )
+    renderer_classes = (renderers.TemplateHTMLRenderer, )
     filter_backends = (DjangoFilterBackend,)
     filter_class = TeamFilter
 
@@ -29,14 +29,21 @@ class TeamsViewSet(viewsets.ModelViewSet):
         else:
             return HttpResponse(status=400)
 
+    def list(self, request, *args, **kwargs):
+        response = super(TeamsViewSet, self).list(request, *args, **kwargs)
+        return Response({"data": response.data}, template_name='team/teams.html')
+
+    def retrieve(self, request, *args, **kwargs):
+        response = super(TeamsViewSet, self).retrieve(request, *args, **kwargs)
+        return Response({"data": response.data}, template_name='team/team.html')
+
 
 class MemberViewSet(viewsets.ModelViewSet):
 
-    template_name = 'member.html'
     serializer_class = MemberSerializer
     queryset = Members.objects.all()
     pagination_class = None
-    renderer_classes = (renderers.JSONRenderer, )
+    renderer_classes = (renderers.TemplateHTMLRenderer, )
     filter_backends = (DjangoFilterBackend,)
     filter_class = MemberFilter
 
@@ -47,3 +54,11 @@ class MemberViewSet(viewsets.ModelViewSet):
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=400)
+
+    def list(self, request, *args, **kwargs):
+        response = super(MemberViewSet, self).list(request, *args, **kwargs)
+        return Response({"data": response.data}, template_name='team/members.html')
+
+    def retrieve(self, request, *args, **kwargs):
+        response = super(MemberViewSet, self).retrieve(request, *args, **kwargs)
+        return Response({"data": response.data}, template_name='team/member.html')
