@@ -22,11 +22,12 @@ class VoteAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user != form.cleaned_data.get("voter").user:
             raise PermissionDenied()
-        messages.info(request, "Winner till now is "+self.get_winner(obj))
+        if self.get_winner(obj):
+            messages.info(request, "Winner till now is "+self.get_winner(obj))
         obj.save()
 
     def get_queryset(self, request):
-        return super(VoteAdmin, self).get_queryset(request).filter(booth__is_active=True)
+        return super(VoteAdmin, self).get_queryset(request).filter(booth__is_active=True, voter__user=request.user)
 
     def get_candidate(self, obj):
         return obj.candidate.name
@@ -51,8 +52,10 @@ class VoteAdmin(admin.ModelAdmin):
     def get_winner(self, obj):
         dict_list = Votes.objects.filter(booth=obj.booth).values("candidate__name"). \
             annotate(vote_count=Count("id"))
-        seq = max(dict_list, key=lambda x: x['vote_count'])
-        return seq.get("candidate__name")
+        if dict_list:
+            seq = max(dict_list, key=lambda x: x['vote_count'])
+            return seq.get("candidate__name")
+
     get_winner.short_description = 'Winner'
 
 
