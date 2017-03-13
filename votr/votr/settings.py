@@ -51,6 +51,7 @@ SECRET_KEY = 'atgg+6j)6qaaok13a(wo1ktyf@!g$5_n=9pd%y!axu7^gtivu&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 # Application definition
 
 INSTALLED_APPS = [
