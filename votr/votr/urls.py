@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^team/', include(team_urls)),
     url(r'^sprint/', include(sprint_urls)),
     url(r'^booth/', include(voting_urls)),
-    url(r'^admin/', admin.site.urls)
+    url(r'^polls/', admin.site.urls)
 ]
 
 admin.site.site_header = 'Sprint Polling'
