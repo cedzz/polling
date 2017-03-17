@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 
-from models import Teams, Members
+from .models import Teams, Members
 
 
 # Register your models here.
