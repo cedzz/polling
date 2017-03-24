@@ -18,6 +18,11 @@ class VotingParams(models.Model):
     def __unicode__(self):
         return self.parameter_name
 
+    class Meta:
+        verbose_name = 'Voting Param'
+        verbose_name_plural = 'Voting Params'
+
+
 class Booth(models.Model):
 
     sprint = models.ForeignKey(Sprints)
@@ -30,6 +35,11 @@ class Booth(models.Model):
     def __unicode__(self):
         return self.booth_name
 
+    class Meta:
+        verbose_name = 'Booth'
+        verbose_name_plural = 'Booth'
+
+
 class Votes(models.Model):
 
     booth = models.ForeignKey(Booth)
@@ -39,3 +49,7 @@ class Votes(models.Model):
     comments = models.TextField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Vote'
+        verbose_name_plural = 'Votes'

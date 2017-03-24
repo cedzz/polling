@@ -20,6 +20,10 @@ class Teams(models.Model):
     def __unicode__(self):
         return self.team_name
 
+    class Meta:
+        verbose_name = 'Team'
+        verbose_name_plural = 'Teams'
+
 
 class Members(models.Model):
 
@@ -39,3 +43,7 @@ class Members(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Member'
+        verbose_name_plural = 'Members'

@@ -67,7 +67,8 @@ INSTALLED_APPS = [
     'votr',
     'voting',
     'sprints',
-    'teams'
+    'teams',
+    'activity'
 ]
 
 MIDDLEWARE_CLASSES = [
