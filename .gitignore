@@ -1,0 +1,5 @@
+polling-env/*
+__pycache__/*
+*.iml
+*.pyc
+node_modules

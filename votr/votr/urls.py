@@ -19,8 +19,12 @@ from teams import urls as team_urls
 from sprints import urls as sprint_urls
 from voting import urls as voting_urls
 from activity import urls as activity_urls
+
+
+from django.views.generic import TemplateView
+
 urlpatterns = [
-    url(r'^$', 'votr.api.index'),
+    url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^team/', include(team_urls)),
     url(r'^sprint/', include(sprint_urls)),
     url(r'^booth/', include(voting_urls)),
