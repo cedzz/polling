@@ -18,12 +18,13 @@ from django.contrib import admin
 from teams import urls as team_urls
 from sprints import urls as sprint_urls
 from voting import urls as voting_urls
-
+from activity import urls as activity_urls
 urlpatterns = [
     url(r'^$', 'votr.api.index'),
     url(r'^team/', include(team_urls)),
     url(r'^sprint/', include(sprint_urls)),
     url(r'^booth/', include(voting_urls)),
+    url(r'^activity/',include(activity_urls)),
     url(r'^polls/', admin.site.urls)
 ]
 

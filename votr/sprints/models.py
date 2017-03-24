@@ -16,6 +16,9 @@ class Projects(models.Model):
     end_date = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=True)
 
+    def __unicode__(self):
+        return self.project_name
+
     class Meta:
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
@@ -30,6 +33,9 @@ class Sprints(models.Model):
     start_date = models.DateTimeField(default=None)
     end_date = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return self.sprint_name
 
     class Meta:
         verbose_name = 'Sprint'
