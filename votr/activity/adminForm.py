@@ -10,6 +10,5 @@ class ActivityAdminForm(forms.ModelForm):
         fields = '__all__'
 
     def clean(self):
-
-        if self.cleaned_data.get("sprint") != Sprints.objects.get(is_active=1):
+        if self.cleaned_data.get("sprint") != Sprints.get_active_sprint():
             raise forms.ValidationError("Choose Active Sprint")

@@ -20,7 +20,7 @@ class ActivityAdmin(admin.ModelAdmin):
 
     def get_changeform_initial_data(self, request):
         return {'member': request.user.members,
-                'sprint': self.get_active_sprint()}
+                'sprint': Sprints.get_active_sprint()}
 
     def get_member(self, obj):
         return obj.member.name
@@ -37,8 +37,5 @@ class ActivityAdmin(admin.ModelAdmin):
             raise PermissionDenied()
         obj.save()
 
-    @staticmethod
-    def get_active_sprint():
-        return Sprints.objects.get(is_active=1)
 
 admin.site.register(ActivityBoard, ActivityAdmin)

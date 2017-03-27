@@ -10,7 +10,7 @@ from voting.models import Votes, VotingParams, Booth
 
 class VoteAdmin(admin.ModelAdmin):
 
-    list_display = ('get_voter', 'get_candidate', 'get_parameter', 'get_booth', 'get_winner', 'created_at', 'comments')
+    list_display = ('get_voter', 'get_candidate', 'get_parameter', 'get_booth', 'get_winner', 'comments')
     list_filter = ('candidate__name', 'booth__booth_name', 'created_at')
     list_per_page = 10
     search_fields = ['voter__name']

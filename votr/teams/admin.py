@@ -23,9 +23,6 @@ class MemberAdmin(admin.ModelAdmin):
     search_fields = ['name']
     readonly_fields = ('user', )
 
-    def get_queryset(self, request):
-        return super(MemberAdmin, self).get_queryset(request).filter(user=request.user)
-
     def save_model(self, request, obj, form, change):
         if request.user != obj.user:
             raise PermissionDenied()

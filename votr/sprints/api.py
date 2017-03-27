@@ -11,6 +11,7 @@ from sprints.utils import SprintsStore
 
 sprints_store = SprintsStore()
 
+
 class ProjectsViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProjectsSerializer
