@@ -60,6 +60,9 @@ class SprintSummary(models.Model):
     status = models.CharField(max_length=50, default=None)
     comments = models.CharField(max_length=200, default=None)
 
+    def __unicode__(self):
+        return self.ticket
+
     class Meta:
         verbose_name = 'Sprint Summary'
         verbose_name_plural = 'Sprint Summary'
