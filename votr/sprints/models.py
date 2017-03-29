@@ -51,14 +51,13 @@ class Sprints(models.Model):
 
 class SprintSummary(models.Model):
 
-    sprint = models.ForeignKey(Sprints)
-    member = models.ForeignKey(Members)
+    sprint_name = models.CharField(max_length=50, default=None)
+    member = models.CharField(max_length=50, default=None)
     ticket = models.CharField(max_length=50, default=None)
-    ticket_desc = models.CharField(max_length=100, default=None)
+    ticket_desc = models.TextField(max_length=100, default=None)
     points = models.IntegerField(default=0)
-    due_date = models.DateField()
+    due_date = models.CharField(max_length=20, default=None)
     status = models.CharField(max_length=50, default=None)
-    comments = models.CharField(max_length=200, default=None)
 
     def __unicode__(self):
         return self.ticket

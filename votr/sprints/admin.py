@@ -24,14 +24,17 @@ admin.site.register(Sprints, SprintAdmin)
 
 class SprintSummaryAdmin(admin.ModelAdmin):
 
-    list_display = ('sprint', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status')
+    list_display = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status')
     search_fields = ['ticket', 'member', 'due_date', 'status']
-    readonly_fields = ('sprint', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'comments')
+    readonly_fields = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status')
 
     def has_add_permission(self, request):
         return False
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def get_queryset(self, request):
+        return super(SprintSummaryAdmin, self).get_queryset(request).filter().order_by('-points')
 
 admin.site.register(SprintSummary, SprintSummaryAdmin)

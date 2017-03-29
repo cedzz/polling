@@ -147,3 +147,7 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }
+
+JIRA_HOST = 'https://mpulsemobile.atlassian.net'
+JIRA_USER = 'ashukla'
+JIRA_PASSWORD = '!QAZxsw23'
