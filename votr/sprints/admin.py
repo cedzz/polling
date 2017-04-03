@@ -1,7 +1,4 @@
 from django.contrib import admin
-# Register your models here.
-from django.contrib import messages
-
 from sprints.models import Projects, Sprints, SprintSummary
 
 
@@ -24,12 +21,17 @@ admin.site.register(Sprints, SprintAdmin)
 
 class SprintSummaryAdmin(admin.ModelAdmin):
 
-    list_display = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status')
-    search_fields = ['ticket', 'member', 'due_date', 'status']
-    readonly_fields = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status')
+    list_display = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type')
+    search_fields = ['ticket', 'member', 'due_date', 'status', 'issue_type']
+    readonly_fields = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type')
 
     def has_add_permission(self, request):
         return False
+
+    def get_actions(self, request):
+        actions = super(SprintSummaryAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
 
     def has_delete_permission(self, request, obj=None):
         return False

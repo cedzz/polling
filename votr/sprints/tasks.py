@@ -42,6 +42,7 @@ def update_active_sprint_summary():
             sprint_instance['member'] = issue_ob.fields.assignee or ''
             sprint_instance['due_date'] = issue_ob.fields.duedate or ''
             sprint_instance['status'] = issue_ob.fields.status.name or ''
+            sprint_instance['issue_type'] = issue_ob.fields.issuetype.name or ''
             if hasattr(issue_ob.fields, 'customfield_10013'):
                 sprint_instance['points'] = int(issue_ob.fields.customfield_10013 or 0)
             sprint_instance['sprint_name'] = sprint_info_dict['active_sprint']

@@ -58,6 +58,7 @@ class SprintSummary(models.Model):
     points = models.IntegerField(default=0)
     due_date = models.CharField(max_length=20, default=None)
     status = models.CharField(max_length=50, default=None)
+    issue_type = models.CharField(max_length=50, default=None)
 
     def __unicode__(self):
         return self.ticket
