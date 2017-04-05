@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 
 from activity.adminForm import ActivityAdminForm
-from models import ActivityBoard
+from .models import ActivityBoard
 
 # Register your models here.
 from sprints.models import Sprints

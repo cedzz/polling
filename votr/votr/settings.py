@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_react_templatetags',
     'webpack_loader',
+    'login.apps.LoginConfig',
     'votr',
     'voting',
     'sprints',
@@ -115,8 +116,15 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+
     'PAGE_SIZE': 10
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -139,7 +147,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'assets'),
+        os.path.join(BASE_DIR, 'static')
 )   
+
+# Webpack loader configurations
 
 WEBPACK_LOADER = {
     'DEFAULT': {
