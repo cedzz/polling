@@ -24,9 +24,10 @@ admin.site.register(Sprints, SprintAdmin)
 
 class SprintSummaryAdmin(admin.ModelAdmin):
 
-    list_display = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type')
-    search_fields = ['ticket', 'member', 'due_date', 'status', 'issue_type']
-    readonly_fields = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type')
+    list_display = ('assignee', 'ticket', 'issue_type', 'points', 'reporter', 'ticket_desc', 'due_date', 'status')
+    search_fields = ['ticket', 'assignee', 'due_date', 'status', 'issue_type', 'reporter']
+    readonly_fields = ('sprint_name', 'assignee', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type',
+                       'reporter')
     form = SprintsAdminForm
 
     def save_model(self, request, obj, form, change):
