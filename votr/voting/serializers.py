@@ -1,7 +1,4 @@
 from rest_framework import serializers
-
-from rest_framework import serializers
-
 from sprints.utils import SprintsStore
 from teams.utils import TeamStore
 from voting.models import Booth, Votes

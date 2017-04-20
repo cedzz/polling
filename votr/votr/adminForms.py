@@ -3,8 +3,7 @@ from __future__ import unicode_literals
 from annoying.functions import get_object_or_None
 from django import forms
 from django.contrib.auth import (
-    authenticate, get_user_model,
-    _get_backends)
+    get_user_model, _get_backends)
 from django.contrib.auth.models import User, Group
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
