@@ -33,9 +33,12 @@ class ActivityAdmin(admin.ModelAdmin):
     get_sprint.admin_order_field = 'sprint__sprint_name'
 
     def save_model(self, request, obj, form, change):
-        if request.user != form.cleaned_data.get("member").user:
+        if form.cleaned_data.get("member") and request.user != form.cleaned_data.get("member").user:
             raise PermissionDenied()
         obj.save()
 
+    def delete_model(self, request, obj):
+        if request.user != obj.member:
+            raise PermissionDenied()
 
 admin.site.register(ActivityBoard, ActivityAdmin)

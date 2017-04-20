@@ -17,7 +17,8 @@ class VoteAdmin(admin.ModelAdmin):
     form = VoteAdminForm
 
     def get_changeform_initial_data(self, request):
-        return {'voter': request.user.members}
+        if hasattr(request.user, "members"):
+            return {'voter': request.user.members}
 
     def save_model(self, request, obj, form, change):
         if request.user != form.cleaned_data.get("voter").user:

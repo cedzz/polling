@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.contrib import messages
+
+from sprints.adminForm import SprintsAdminForm
 from sprints.models import Projects, Sprints, SprintSummary
 
 
@@ -24,6 +27,13 @@ class SprintSummaryAdmin(admin.ModelAdmin):
     list_display = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type')
     search_fields = ['ticket', 'member', 'due_date', 'status', 'issue_type']
     readonly_fields = ('sprint_name', 'member', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type')
+    form = SprintsAdminForm
+
+    def save_model(self, request, obj, form, change):
+
+        if self.get_winner(obj):
+            messages.info(request, "Winner till now is "+self.get_winner(obj))
+        obj.save()
 
     def has_add_permission(self, request):
         return False

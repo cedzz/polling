@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 from teams.models import Teams, Members
-
+from django.core.exceptions import ValidationError
 
 class Projects(models.Model):
 
@@ -43,6 +43,10 @@ class Sprints(models.Model):
             return cls.objects.get(is_active=1)
         except cls.DoesNotExist:
             return None
+
+    def clean(self):
+        if Sprints.objects.filter(is_active=1).count():
+            raise ValidationError("Cannot be more than one active sprint")
 
     class Meta:
         verbose_name = 'Sprint'

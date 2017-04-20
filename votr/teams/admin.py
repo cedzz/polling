@@ -4,8 +4,6 @@ from django.core.exceptions import PermissionDenied
 from .models import Teams, Members
 
 
-# Register your models here.
-
 class TeamAdmin(admin.ModelAdmin):
 
     list_display = ('team_name',)
@@ -18,13 +16,20 @@ admin.site.register(Teams, TeamAdmin)
 
 class MemberAdmin(admin.ModelAdmin):
 
-    list_display = ('name',)
+    list_display = ('name', 'get_team', 'created_at', 'is_active')
     list_filter = ('name', 'team__team_name', 'created_at', 'is_active')
     search_fields = ['name']
     readonly_fields = ('user', )
 
+    def get_team(self, obj):
+        if obj.team:
+            return obj.team.team_name
+    get_team.short_description = 'Team'
+    get_team.admin_order_field = 'team__team_name'
+
     def save_model(self, request, obj, form, change):
-        if request.user != obj.user:
+        if request.user != obj:
             raise PermissionDenied()
+        obj.save()
 
 admin.site.register(Members, MemberAdmin)

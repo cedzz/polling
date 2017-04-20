@@ -23,6 +23,11 @@ from activity import urls as activity_urls
 
 from django.views.generic import TemplateView
 
+from votr.adminForms import AuthenticationForm
+
+admin.autodiscover()
+admin.site.login_form = AuthenticationForm
+
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^team/', include(team_urls)),

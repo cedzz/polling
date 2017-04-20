@@ -50,6 +50,9 @@ class Votes(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return self.comments
+
     class Meta:
         verbose_name = 'Vote'
         verbose_name_plural = 'Votes'
