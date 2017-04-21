@@ -6,6 +6,8 @@ from django.db.models.aggregates import Count
 
 from voting.adminForm import VoteAdminForm
 from voting.models import Votes, VotingParams, Booth
+from operator import or_
+from django.db.models import Q
 
 
 class VoteAdmin(admin.ModelAdmin):
@@ -56,9 +58,18 @@ class VoteAdmin(admin.ModelAdmin):
         if dict_list:
             seq = max(dict_list, key=lambda x: x['vote_count'])
             return seq.get("candidate__name")
-
     get_winner.short_description = 'Winner'
 
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super(VoteAdmin, self).get_search_results(
+            request, queryset, search_term)
+        search_words = search_term.split()
+        if search_words:
+            q_objects = [Q(**{field + '__icontains': word})
+                         for field in self.search_fields
+                         for word in search_words]
+            queryset |= self.model.objects.filter(reduce(or_, q_objects))
+        return queryset, use_distinct
 
 admin.site.register(Votes, VoteAdmin)
 

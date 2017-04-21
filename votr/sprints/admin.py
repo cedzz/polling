@@ -7,7 +7,7 @@ from sprints.models import Projects, Sprints, SprintSummary
 
 class ProjectAdmin(admin.ModelAdmin):
 
-    list_display = ('project_name',)
+    list_display = ('project_name', 'team', 'start_date')
     search_fields = ['project_name']
 
 admin.site.register(Projects, ProjectAdmin)
@@ -28,6 +28,7 @@ class SprintSummaryAdmin(admin.ModelAdmin):
     search_fields = ['ticket', 'assignee', 'due_date', 'status', 'issue_type', 'reporter']
     readonly_fields = ('sprint_name', 'assignee', 'ticket', 'ticket_desc', 'points', 'due_date', 'status', 'issue_type',
                        'reporter')
+    list_filter = ('assignee', 'issue_type', 'status')
     form = SprintsAdminForm
 
     def save_model(self, request, obj, form, change):

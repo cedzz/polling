@@ -46,7 +46,7 @@ class AuthenticationForm(forms.Form):
         password = self.cleaned_data.get('password')
 
         if username and password:
-            self.user_cache = get_object_or_None(User, username=username)
+            self.user_cache = get_object_or_None(User, username=username, password=password)
             if not self.user_cache:
                 try:
                     JIRA(server=settings.JIRA_HOST, basic_auth=(username, password), max_retries=0)
