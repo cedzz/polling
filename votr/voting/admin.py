@@ -18,6 +18,12 @@ class VoteAdmin(admin.ModelAdmin):
     search_fields = ['voter__name']
     form = VoteAdminForm
 
+    def changelist_view(self, request, extra_context=None):
+
+        if not request.user.is_superuser:
+            self.list_display = ('get_voter', 'get_candidate', 'get_parameter', 'get_booth', 'comments')
+        return super(VoteAdmin, self).changelist_view(request, extra_context)
+
     def get_changeform_initial_data(self, request):
         if hasattr(request.user, "members"):
             return {'voter': request.user.members}
