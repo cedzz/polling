@@ -3,3 +3,4 @@ __pycache__/*
 *.iml
 *.pyc
 node_modules
+.idea

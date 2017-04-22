@@ -1,6 +1,8 @@
 var React = require('react'); 
 var ReactDOM = require('react-dom'); 
 
+
+
 var Hello = React.createClass( {
 	render : function() { 
 		return (
@@ -12,4 +14,4 @@ var Hello = React.createClass( {
 });
 
 ReactDOM.render(<Hello /> , 
-document.getElementById('container'))
+document.getElementById('container'));
