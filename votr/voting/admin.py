@@ -25,8 +25,14 @@ class VoteAdmin(admin.ModelAdmin):
         return super(VoteAdmin, self).changelist_view(request, extra_context)
 
     def get_changeform_initial_data(self, request):
+        active_booth = None
+        voter = None
         if hasattr(request.user, "members"):
-            return {'voter': request.user.members}
+            voter = request.user.members
+        active_booths = Booth.objects.filter(is_active=1)
+        if active_booths:
+            active_booth = active_booths.first()
+        return {'voter': voter, 'booth': active_booth}
 
     def save_model(self, request, obj, form, change):
         if request.user != form.cleaned_data.get("voter").user:

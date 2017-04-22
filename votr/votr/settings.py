@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TEMPLATES = [
@@ -37,14 +35,8 @@ TEMPLATES = [
     },
 ]
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'atgg+6j)6qaaok13a(wo1ktyf@!g$5_n=9pd%y!axu7^gtivu&'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 
@@ -65,6 +57,7 @@ INSTALLED_APPS = [
     'sprints',
     'teams',
     'activity',
+    'url_bench'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -81,20 +74,12 @@ ROOT_URLCONF = 'votr.urls'
 
 WSGI_APPLICATION = 'votr.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -118,8 +103,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -130,10 +113,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
 
@@ -151,3 +130,5 @@ WEBPACK_LOADER = {
 JIRA_HOST = 'https://mpulsemobile.atlassian.net'
 JIRA_USER = 'ashukla'
 JIRA_PASSWORD = '!QAZxsw23'
+
+ALLOWED_HOSTS = ['localhost']

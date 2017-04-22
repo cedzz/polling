@@ -37,4 +37,4 @@ urlpatterns = [
     url(r'^polls/', admin.site.urls)
 ]
 
-admin.site.site_header = 'Sprint Polling'
+admin.site.site_header = 'Sprint Polling Quovantis'
