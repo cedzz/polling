@@ -1,0 +1,1 @@
+web: gunicorn votr.wsgi --log-file -
