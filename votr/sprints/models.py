@@ -44,9 +44,9 @@ class Sprints(models.Model):
         except cls.DoesNotExist:
             return None
 
-    def clean(self):
-        if Sprints.objects.filter(is_active=1).count():
-            raise ValidationError("Cannot be more than one active sprint")
+    # def clean(self):
+    #     if Sprints.objects.filter(is_active=1).count():
+    #         raise ValidationError("Cannot be more than one active sprint")
 
     class Meta:
         verbose_name = 'Sprint'
@@ -70,4 +70,4 @@ class SprintSummary(models.Model):
 
     class Meta:
         verbose_name = 'Sprint Summary'
-        verbose_name_plural = Sprints.objects.filter(is_active=1)[0].sprint_name
+        verbose_name_plural = 'Sprint Summary'

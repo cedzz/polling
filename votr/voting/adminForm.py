@@ -7,6 +7,7 @@ class VoteAdminForm(forms.ModelForm):
     class Meta:
         model = Votes
         fields = '__all__'
+    voter = forms.CharField(disabled=True)
 
     def clean(self):
 

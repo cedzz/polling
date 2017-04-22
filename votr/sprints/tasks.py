@@ -1,11 +1,11 @@
 # Create your tasks here
 from celery.task import periodic_task
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from jira import JIRA
 
 from votr import settings
-from sprints.models import Sprints, SprintSummary
+from sprints.models import Sprints, SprintSummary, Projects
 from votr import celeryconfig
 from celery import Celery
 
@@ -13,7 +13,7 @@ app = Celery('tasks')
 app.config_from_object(celeryconfig)
 
 
-@periodic_task(run_every=timedelta(seconds=20))
+@periodic_task(run_every=timedelta(minutes=10))
 def update_active_sprint_summary():
     if Sprints.objects.filter(is_active=True).exists():
         SprintSummary.objects.filter().delete()
@@ -49,3 +49,23 @@ def update_active_sprint_summary():
             sprint_instance['sprint_name'] = sprint_info_dict['active_sprint']
             update_summary.append(SprintSummary(**sprint_instance))
         SprintSummary.objects.bulk_create(update_summary)
+
+
+@periodic_task(run_every=timedelta(days=1))
+def update_sprint():
+
+    jira_instance = JIRA(server=settings.JIRA_HOST, basic_auth=(settings.JIRA_USER, settings.JIRA_PASSWORD))
+    boards = jira_instance.boards()
+    sprint_info_dict = {}
+    sprints = []
+    projects = Projects.objects.filter()
+    for project in projects:
+        for board in boards:
+            if project.project_name.capitalize() in board.name.capitalize():
+                sprint_info_dict['board'] = board.name
+                sprints = jira_instance.sprints(board.id)
+
+        for sprint in sprints:
+            if sprint.state == 'ACTIVE' and not Sprints.objects.filter(sprint_name=sprint.name, is_active=1).exists():
+                Sprints.objects.create(sprint_name=sprint.name, project=project, start_date=datetime.now(),
+                                       is_active=1)
