@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^activity/',include(activity_urls)),
     url(r'^login/', include(login_urls)),
 
-    url(r'^admin_baba/', admin.site.urls)
+    url(r'^polls/', admin.site.urls)
 ]
 
 admin.site.site_header = 'Sprint Polling Quovantis'
