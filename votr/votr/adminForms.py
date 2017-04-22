@@ -13,6 +13,7 @@ from url_bench.models import UrlBench
 
 url_bench = UrlBench.objects.filter().first()
 
+
 class AuthenticationForm(forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
