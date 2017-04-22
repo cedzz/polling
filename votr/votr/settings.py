@@ -127,8 +127,8 @@ WEBPACK_LOADER = {
     }
 }
 
-JIRA_HOST = 'https://mpulsemobile.atlassian.net'
-JIRA_USER = 'ashukla'
-JIRA_PASSWORD = '!QAZxsw23'
+# JIRA_HOST = 'https://mpulsemobile.atlassian.net'
+# JIRA_USER = 'ashukla'
+# JIRA_PASSWORD = '!QAZxsw23'
 
 ALLOWED_HOSTS = ['localhost']

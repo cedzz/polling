@@ -4,7 +4,7 @@ from datetime import timedelta, datetime
 
 from jira import JIRA
 
-from votr import settings
+from url_bench.models import UrlBench
 from sprints.models import Sprints, SprintSummary, Projects
 from votr import celeryconfig
 from celery import Celery
@@ -12,12 +12,17 @@ from celery import Celery
 app = Celery('tasks')
 app.config_from_object(celeryconfig)
 
+url_bench = UrlBench.objects.filter().first()
 
-@periodic_task(run_every=timedelta(minutes=10))
+
+@periodic_task(run_every=timedelta(seconds=5))
 def update_active_sprint_summary():
     if Sprints.objects.filter(is_active=True).exists():
         SprintSummary.objects.filter().delete()
-        jira_instance = JIRA(server=settings.JIRA_HOST, basic_auth=(settings.JIRA_USER, settings.JIRA_PASSWORD))
+        try:
+            jira_instance = JIRA(server=url_bench.jira_url, basic_auth=(url_bench.host, url_bench.password))
+        except Exception:
+            return
         boards = jira_instance.boards()
         sprint_info_dict = {}
         sprints = []
@@ -53,8 +58,10 @@ def update_active_sprint_summary():
 
 @periodic_task(run_every=timedelta(days=1))
 def update_sprint():
-
-    jira_instance = JIRA(server=settings.JIRA_HOST, basic_auth=(settings.JIRA_USER, settings.JIRA_PASSWORD))
+    try:
+        jira_instance = JIRA(server=url_bench.jira_url, basic_auth=(url_bench.host, url_bench.password))
+    except Exception:
+        return
     boards = jira_instance.boards()
     sprint_info_dict = {}
     sprints = []
