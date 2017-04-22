@@ -14,6 +14,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -140,3 +142,4 @@ WEBPACK_LOADER = {
 # JIRA_PASSWORD = '!QAZxsw23'
 
 ALLOWED_HOSTS = ['localhost']
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
