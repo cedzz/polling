@@ -84,6 +84,9 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -141,5 +144,6 @@ WEBPACK_LOADER = {
 # JIRA_USER = 'ashukla'
 # JIRA_PASSWORD = '!QAZxsw23'
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['sprintPolling.herokuapp.com', ]
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
