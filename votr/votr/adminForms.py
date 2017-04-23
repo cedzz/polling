@@ -11,7 +11,6 @@ from jira import JIRA
 
 from url_bench.models import UrlBench
 
-url_bench = UrlBench.objects.filter().first()
 
 
 class AuthenticationForm(forms.Form):
