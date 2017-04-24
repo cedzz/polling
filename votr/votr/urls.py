@@ -33,7 +33,7 @@ admin.site.login_form = AuthenticationForm
 
 urlpatterns = [
     url(r'^app$', app_view),
-    url(r'^$', RedirectView.as_view(url='/login')),
+    url(r'^$', RedirectView.as_view(url='/polls')),
     url(r'^team/', include(team_urls)),
     url(r'^sprint/', include(sprint_urls)),
     url(r'^booth/', include(voting_urls)),

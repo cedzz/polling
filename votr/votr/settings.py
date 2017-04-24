@@ -141,6 +141,6 @@ WEBPACK_LOADER = {
 # JIRA_USER = 'ashukla'
 # JIRA_PASSWORD = '!QAZxsw23'
 
-ALLOWED_HOSTS = ['sprintPolling.herokuapp.com/polls', 'localhost']
+ALLOWED_HOSTS = ['sprintPolling.herokuapp.com', 'localhost']
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
