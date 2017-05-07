@@ -12,8 +12,8 @@ from django.db.models import Q
 
 class VoteAdmin(admin.ModelAdmin):
 
-    list_display = ('get_voter', 'get_candidate', 'get_parameter', 'get_booth', 'get_winner', 'comments')
-    list_filter = ('candidate__name', 'booth__booth_name', 'created_at')
+    list_display = ('get_candidate', 'get_voter', 'get_parameter', 'get_booth', 'get_winner', 'comments')
+    list_filter = ('voter__name', 'booth__booth_name', 'created_at')
     list_per_page = 10
     search_fields = ['voter__name']
     form = VoteAdminForm
@@ -22,6 +22,8 @@ class VoteAdmin(admin.ModelAdmin):
 
         if not request.user.is_superuser:
             self.list_display = ('get_voter', 'get_candidate', 'get_parameter', 'get_booth', 'comments')
+        else:
+            self.list_display = ('get_candidate', 'get_voter', 'get_parameter', 'get_booth', 'get_winner', 'comments')
         return super(VoteAdmin, self).changelist_view(request, extra_context)
 
     def get_changeform_initial_data(self, request):
@@ -37,12 +39,15 @@ class VoteAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user != form.cleaned_data.get("voter").user:
             raise PermissionDenied()
-        if self.get_winner(obj):
-            messages.info(request, "Winner till now is "+self.get_winner(obj))
+        # if self.get_winner(obj):
+        #     messages.info(request, "Winner till now is "+self.get_winner(obj))
         obj.save()
 
     def get_queryset(self, request):
-        return super(VoteAdmin, self).get_queryset(request).filter(booth__is_active=True, voter__user=request.user)
+        if not request.user.is_superuser:
+            return super(VoteAdmin, self).get_queryset(request).filter(booth__is_active=True, voter__user=request.user)
+        else:
+            return super(VoteAdmin, self).get_queryset(request).filter(booth__is_active=True)
 
     def get_candidate(self, obj):
         return obj.candidate.name
@@ -88,7 +93,7 @@ admin.site.register(Votes, VoteAdmin)
 
 class BoothAdmin(admin.ModelAdmin):
 
-    list_display = ('booth_name',)
+    list_display = ('booth_name', 'start_date', 'end_date')
     search_fields = ['booth_name']
     list_filter = ('booth_name', 'created_at')
     list_per_page = 10
@@ -98,7 +103,7 @@ admin.site.register(Booth, BoothAdmin)
 
 class ParamAdmin(admin.ModelAdmin):
 
-    list_display = ('parameter_name',)
+    list_display = ('parameter_name', 'comments')
     search_fields = ['parameter_name']
     list_filter = ('parameter_name', 'created_at')
     list_per_page = 10

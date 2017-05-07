@@ -6,6 +6,6 @@ from url_bench.models import UrlBench
 
 class UrlAdmin(admin.ModelAdmin):
 
-    list_display = ('jira_url', 'host', 'password', 'created_at')
+    list_display = ('jira_url', 'host', 'created_at')
 
 admin.site.register(UrlBench, UrlAdmin)

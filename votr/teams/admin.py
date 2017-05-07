@@ -33,4 +33,5 @@ class MemberAdmin(admin.ModelAdmin):
             raise PermissionDenied()
         obj.save()
 
+
 admin.site.register(Members, MemberAdmin)

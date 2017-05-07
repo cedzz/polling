@@ -11,7 +11,7 @@ from teams.models import Members
 class VotingParams(models.Model):
 
     parameter_name = models.CharField(max_length=50, default=None)
-    comments = models.CharField(max_length=200)
+    comments = models.TextField(max_length=1500)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

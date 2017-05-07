@@ -50,7 +50,7 @@ class AuthenticationForm(forms.Form):
             if not self.user_cache:
                 try:
                     url_bench = UrlBench.objects.filter().first()
-                    JIRA(server=url_bench.jira_url, basic_auth=(url_bench.host, url_bench.password), max_retries=0)
+                    JIRA(server=url_bench.jira_url, basic_auth=(username, password), max_retries=0)
                 except Exception:
                     raise forms.ValidationError(
                         self.error_messages['invalid_login'],
