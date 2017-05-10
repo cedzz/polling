@@ -8,6 +8,7 @@ from teams.utils import TeamStore
 sprint_store = SprintsStore()
 team_store = TeamStore()
 
+
 class ProjectInfo(serializers.ModelSerializer):
 
     class Meta:

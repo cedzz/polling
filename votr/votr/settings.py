@@ -136,11 +136,5 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }
-
-# JIRA_HOST = 'https://mpulsemobile.atlassian.net'
-# JIRA_USER = 'ashukla'
-# JIRA_PASSWORD = '!QAZxsw23'
-
 ALLOWED_HOSTS = ['sprintPolling.herokuapp.com', 'localhost', '192.168.30.234']
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
