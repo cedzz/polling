@@ -23,6 +23,21 @@ class VotingParams(models.Model):
         verbose_name_plural = 'Voting Params'
 
 
+class QuarterSummary(models.Model):
+
+    quarter_name = models.CharField(max_length=50, default=None)
+    current_winner = models.ForeignKey(Members, null=True, default=None)
+    total_votes = models.IntegerField(null=True, default=None)
+    is_active = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.quarter_name
+
+    class Meta:
+        verbose_name = 'Quarter Summary'
+        verbose_name_plural = 'Quarter Summary'
+
+
 class Booth(models.Model):
 
     sprint = models.ForeignKey(Sprints)
@@ -31,6 +46,7 @@ class Booth(models.Model):
     start_date = models.DateTimeField(default=None)
     end_date = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=False)
+    quarter = models.ForeignKey(QuarterSummary, null=True, default=None)
 
     def __unicode__(self):
         return self.booth_name

@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 from teams.models import Teams, Members
-from django.core.exceptions import ValidationError
+
 
 class Projects(models.Model):
 

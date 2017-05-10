@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models.aggregates import Count
 
 from voting.adminForm import VoteAdminForm
-from voting.models import Votes, VotingParams, Booth
+from voting.models import Votes, VotingParams, Booth, VoteSummary, QuarterSummary
 from operator import or_
 from django.db.models import Q
 
@@ -109,3 +109,39 @@ class ParamAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 admin.site.register(VotingParams, ParamAdmin)
+
+
+class VoteSummaryAdmin(admin.ModelAdmin):
+
+    list_display = ('sprint', 'candidate', 'total_votes')
+    search_fields = ['sprint', 'candidate']
+    list_filter = ('sprint', 'candidate')
+    list_per_page = 10
+
+    def has_add_permission(self, request):
+        return False
+
+    def get_actions(self, request):
+        actions = super(VoteSummaryAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def get_queryset(self, request):
+        return VoteSummary.objects.filter().order_by('-total_votes')
+
+admin.site.register(VoteSummary, VoteSummaryAdmin)
+
+
+class QuarterAdmin(admin.ModelAdmin):
+
+    list_display = ('quarter_name', 'current_winner', 'total_votes')
+    search_fields = ['quarter_name', 'current_winner']
+    list_filter = ('quarter_name', 'current_winner', 'total_votes')
+    list_per_page = 10
+    readonly_fields = ['current_winner', 'total_votes']
+
+
+admin.site.register(QuarterSummary, QuarterAdmin)

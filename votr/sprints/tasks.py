@@ -15,7 +15,7 @@ app.config_from_object(celeryconfig)
 url_bench = UrlBench.objects.filter().first()
 
 
-@periodic_task(run_every=timedelta(seconds=10))
+@periodic_task(run_every=timedelta(days=10))
 def update_active_sprint_summary():
     if Sprints.objects.filter(is_active=True).exists():
         SprintSummary.objects.filter().delete()
@@ -56,7 +56,7 @@ def update_active_sprint_summary():
         SprintSummary.objects.bulk_create(update_summary)
 
 
-@periodic_task(run_every=timedelta(seconds=5))
+@periodic_task(run_every=timedelta(days=5))
 def update_sprint():
     try:
         jira_instance = JIRA(server=url_bench.jira_url, basic_auth=(url_bench.host, url_bench.password))
