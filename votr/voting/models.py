@@ -56,3 +56,14 @@ class Votes(models.Model):
     class Meta:
         verbose_name = 'Vote'
         verbose_name_plural = 'Votes'
+
+
+class VoteSummary(models.Model):
+
+    sprint = models.ForeignKey(Sprints)
+    total_votes = models.IntegerField()
+    candidate = models.ForeignKey(Members)
+
+    class Meta:
+        verbose_name = 'Vote Summary'
+        verbose_name_plural = 'Vote Summary'
