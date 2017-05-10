@@ -93,7 +93,7 @@ admin.site.register(Votes, VoteAdmin)
 
 class BoothAdmin(admin.ModelAdmin):
 
-    list_display = ('booth_name', 'start_date', 'end_date')
+    list_display = ('booth_name', 'start_date', 'end_date', 'is_active')
     search_fields = ['booth_name']
     list_filter = ('booth_name', 'created_at')
     list_per_page = 10
